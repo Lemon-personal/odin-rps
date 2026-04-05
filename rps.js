@@ -2,80 +2,81 @@ let playerScore = 0
 let comScore = 0
 let rounds = 0
 
-while (isNaN(rounds = +(prompt("How many rounds?")))){
+//buttons
+let buttonDiv = document.createElement("div")
+let rockButton = document.createElement("button")
+let paperButton = document.createElement("button")
+let scissorsButton = document.createElement("button")
+
+rockButton.textContent = "Rock"
+paperButton.textContent = "Paper"
+scissorsButton.textContent = "Scissors"
+
+buttonDiv.appendChild(rockButton)
+buttonDiv.appendChild(paperButton)
+buttonDiv.appendChild(scissorsButton)
+
+document.body.appendChild(buttonDiv)
+
+buttonDiv.querySelectorAll("button").forEach(button => button.addEventListener('click', playRound))
+
+let resultDiv = document.createElement("div")
+document.body.appendChild(resultDiv)
+
+while (playerScore <= 5 || comScore <= 5){
+    
 }
 
-
-for (let i = 0; i < rounds; i++){
-    console.log("Round: " + (i + 1))
-
-    let playerChoice = getHumanChoice()
-    let comChoice = getComputerChoice()
-
-    playRound(playerChoice, comChoice)
-}
-
-if (playerScore > comScore){
-    console.log("You Win! " + playerScore + " to " + comScore)
-}
-else if (playerScore < comScore){
-    console.log("You Lose... " + playerScore + " to " + comScore)
-}
-else {
-    console.log("Its a Tie! " + playerScore + " to " + comScore)
-}
-
-console.log("Reload page to play again!")
-
-
-function  playRound(player, computer){
+function playRound(event){
+    let player = event.target.textContent.toLowerCase()
+    let computer = getComputerChoice()
 
     console.log(player + " VS. " + computer)
 
     switch (player){
         case "rock":
             if (computer == "scissors"){
-                console.log("You win! Rock beats Scissors!")
+                resultDiv.textContent = "You win! Rock beats Scissors!"
                 playerScore += 1
             }
             else if (computer == "paper"){
-                console.log("You lose! Paper beats Rock!")
+                resultDiv.textContent = "You lose! Paper beats Rock!"
                 comScore += 1
             }
             else{
-                console.log("It's a tie!")
+                resultDiv.textContent = "It's a tie!"
             }
             return;
 
         case "paper":
             if (computer == "rock"){
-                console.log("You win! Paper beats Rock!")
+                resultDiv.textContent = "You win! Paper beats Rock!"
                 playerScore += 1
             }
             else if (computer == "Scissors"){
-                console.log("You lose! Scissors beats Paper!")
+                resultDiv.textContent = "You lose! Scissors beats Paper!"
                 comScore += 1
             }
             else{
-                console.log("It's a tie!")
+                resultDiv.textContent = "It's a tie!"
             }
             return;
 
         case "scissors":
             if (computer == "paper"){
-                console.log("You win! Scissors beats Paper!")
+                resultDiv.textContent = "You win! Scissors beats Paper!"
                 playerScore += 1
             }
             else if (computer == "rock"){
-                console.log("You lose! Rock beats Scissors!")
+                resultDiv.textContent = "You lose! Rock beats Scissors!"
                 comScore += 1
             }
             else{
-                console.log("It's a tie!")
+                resultDiv.textContent = "It's a tie!"
             }
             return;
         default:
-            console.log("Invalid choice!")
+            resultDiv.textContent = "Invalid choice!"
     }
 
 }
@@ -96,10 +97,3 @@ function getComputerChoice(){
 
     return choice
 }
-
-function getHumanChoice(){
-    let choice = prompt("Choose: Rock, Paper, Scissor", '')
-
-    return choice.toLowerCase()
-}
-
